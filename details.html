@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Your Details</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Poppins", sans-serif;
+      background-color: #f0f8ff;
+      color: #333;
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 450px;
+      width: 100%;
+      background: white;
+      border-radius: 15px;
+      padding: 40px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: #16a085;
+      margin-bottom: 30px;
+      text-align: left;
+    }
+
+    .appointment-summary {
+      background-color: #f8f9fa;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 25px;
+    }
+
+    .appointment-summary .row {
+      margin-bottom: 10px;
+    }
+
+    .appointment-summary .title {
+      font-size: 0.9rem;
+      color: #666;
+      margin-bottom: 4px;
+    }
+
+    .appointment-summary .info {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #2c3e50;
+    }
+
+    .form-group {
+      margin-bottom: 25px;
+    }
+
+    label {
+      display: block;
+      font-size: 1rem;
+      font-weight: 500;
+      color: #2c3e50;
+      margin-bottom: 10px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"] {
+      width: 100%;
+      padding: 12px 15px;
+      font-size: 1rem;
+      font-family: "Poppins", sans-serif;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      background-color: white;
+      color: #333;
+      transition: border-color 0.3s;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #16a085;
+    }
+
+    .button-group {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-top: 30px;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 15px;
+      font-size: 1rem;
+      font-weight: 600;
+      font-family: "Poppins", sans-serif;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-align: center;
+      text-decoration: none;
+      display: block;
+    }
+
+    .btn-back {
+      background-color: white;
+      color: #16a085;
+      border: 2px solid #16a085;
+    }
+
+    .btn-back:hover {
+      background-color: #f0fffe;
+    }
+
+    .btn-confirm {
+      background-color: #5dcea5;
+      color: white;
+    }
+
+    .btn-confirm:hover {
+      background-color: #4db894;
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 30px 20px;
+      }
+
+      h1 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Your Details</h1>
+
+    <div class="appointment-summary">
+      <div class="row">
+        <div class="title">Doctor</div>
+        <div class="info" id="doctorName">...</div>
+      </div>
+      <div class="row">
+        <div class="title">Date & Time</div>
+        <div class="info" id="dateTime">...</div>
+      </div>
+    </div>
+
+    <form id="bookingForm">
+      <div class="form-group">
+        <label for="fullname">Full Name</label>
+        <input type="text" id="fullname" required>
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" required>
+      </div>
+      <div class="form-group">
+        <label for="phone">Phone</label>
+        <input type="tel" id="phone" required>
+      </div>
+
+      <div class="button-group">
+        <a href="doctor_time.html" class="btn btn-back">Back</a>
+        <button type="submit" class="btn btn-confirm">Confirm Booking</button>
+      </div>
+    </form>
+  </div>
+  <script>
+  // Load appointment summary
+  const appointment = JSON.parse(localStorage.getItem("Details"));
+
+  if (appointment && appointment.doctor && appointment.date && appointment.time) {
+    document.getElementById("doctorName").textContent = appointment.doctor.name;
+    document.getElementById("dateTime").textContent = `${appointment.date} at ${appointment.time}`;
+  } else {
+    alert("Missing appointment details. Redirecting...");
+    window.location.href = "doctor_time.html";
+  }
+
+  // Submit form
+  document.getElementById("bookingForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const fullname = document.getElementById("fullname").value;
+    const email = document.getElementById("email").value;
+    const phone = document.getElementById("phone").value;
+
+    localStorage.setItem("patientInfo", JSON.stringify({ fullname, email, phone }));
+    window.location.href = "confirmation.html";
+  });
+</script>
+
+
+</script>
+
+</body>
+</html>

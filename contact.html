@@ -1,0 +1,287 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us | Hospital Booking</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #fff;
+      color: #333;
+    }
+
+    header {
+      background: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 80px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+      /* Header/Navigation */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #e74c3c;
+        }
+
+        .logo span {
+            color: #2c3e50;
+        }
+
+        nav {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        nav a, nav button {
+            padding: 0.8rem 1.5rem;
+            text-decoration: none;
+            color: white;
+            background: #e74c3c;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover, nav button:hover {
+            background: #c0392b;
+            transform: translateY(-2px);
+        }
+
+
+    .hero {
+      background: url('https://images.unsplash.com/photo-1526256262350-7da7584cf5eb?auto=format&fit=crop&w=1470&q=80') center/cover no-repeat;
+      height: 250px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 2rem;
+      font-weight: 600;
+    }
+
+    .contact-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+      padding: 50px 10%;
+      background-color: #fff;
+    }
+
+    .contact-info, .contact-form {
+      flex: 1 1 400px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      padding: 30px;
+    }
+
+    .contact-info h3, .contact-form h3 {
+      color: #0d9488;
+      margin-bottom: 20px;
+      font-weight: 600;
+    }
+
+    .info-item {
+      margin-bottom: 15px;
+    }
+
+    .info-item i {
+      color: #0d9488;
+      margin-right: 8px;
+    }
+
+    form input, form select, form textarea {
+      width: 100%;
+      padding: 10px 14px;
+      margin-bottom: 15px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-size: 0.95rem;
+    }
+
+    form button {
+      background-color: #0d9488;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    form button:hover {
+      background-color: #0b7a70;
+    }
+
+    .map-section {
+      margin: 50px auto;
+      max-width: 1100px;
+      padding: 20px;
+    }
+
+    iframe {
+      width: 100%;
+      border: none;
+      border-radius: 12px;
+      height: 400px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #f8f8f8;
+      color: #666;
+      font-size: 0.9rem;
+    }
+    
+    .back-link {
+  display: inline-block;
+  margin-top: 30px;
+  padding: 12px 20px;
+  background-color: #925650;
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  border-radius: 8px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.back-link:hover {
+  background-color: #c0392b;
+  transform: translateY(-2px);
+}
+.empty-feedback {
+  display: none;
+  color: #dc3545;
+  font-size: 0.9rem;
+  margin-top: 5px;
+}
+
+.was-validated input:invalid ~ .empty-feedback,
+.was-validated textarea:invalid ~ .empty-feedback,
+.was-validated select:invalid ~ .empty-feedback {
+  display: block;
+}
+
+.was-validated input:invalid,
+.was-validated textarea:invalid,
+.was-validated select:invalid {
+  border-color: #dc3545;
+}
+
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">
+      <img src="{% static 'images/logo.png' %}" alt="Hospital Logo" style="height:40px;">
+    </div>
+   <header>
+        <div class="logo">Health<span>Care</span></div>
+        <nav>
+            <a href="home.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="services.html">Services</a>
+            <a href="doctors.html">Doctors</a>
+            <a href="contact.html">Contact</a>
+           
+        </nav>
+    </header>
+  </header>
+<a href="services.html" class="back-link">← Back to All Services</a>
+  <section class="hero">
+    Get In Touch With Us
+    
+  </section>
+
+  <section class="contact-container">
+    <div class="contact-info">
+      <h3>Get In Touch</h3>
+      <div class="info-item"><i></i> 123 Liberty Avenue, Kampala, Uganda</div>
+      <div class="info-item"><i></i> info@hospitalbooking.com</div>
+      <div class="info-item"><i></i> +256 761 627 807</div>
+      <div class="info-item"><i></i> Mon - Fri: 8AM - 6PM, Sat: 9AM - 4PM</div>
+
+   
+    </div>
+
+    <div class="contact-form">
+      <h3>Send Us a Message</h3>
+      <form action="https://api.web3forms.com/submit" method="POST">
+    <input type="hidden" name="access_key" value="06daa683-44fc-40ba-8bd5-5274067601f8">
+        <div class="form-group">
+          <input type="text" id="full_name" name="full_name" required placeholder="John">
+          <div class="empty-feedback">Please provide your first name.</div>
+        </div>
+
+        <input type="email" name="email" placeholder="Email Address *" required>
+        <input type="text" name="phone" placeholder="Phone Number">
+        <select name="subject" required>
+          <option value="">Select a service...</option>
+          <option value="General Consultation">General Consultation</option>
+          <option value="Dental Checkup">Dental Checkup</option>
+          <option value="Cardiology">Cardiology</option>
+        </select>
+        <textarea name="message" rows="5" placeholder="Tell us about your request..." required></textarea>
+        <button type="submit">Submit Request</button>
+      </form>
+    </div>
+  </section>
+
+  <section class="map-section">
+    <h3 style="color:#1b940d; margin-bottom:15px;">Visit Our Office</h3>
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.748265214567!2d32.58252077496549!3d0.34759696404155615!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x177dbbdb31fcefd7%3A0x54b59d22b0b3a9e1!2sKampala!5e0!3m2!1sen!2sug!4v1697071992322!5m2!1sen!2sug"
+      allowfullscreen=""
+      loading="lazy">
+    </iframe>
+  </section>
+  <script>
+  document.getElementById("contactForm").addEventListener("submit", function(e) {
+    const form = e.target;
+    if (!form.checkValidity()) {
+      e.preventDefault();
+      form.classList.add("was-validated");
+      return;
+    }
+
+    // Proceed with submission (e.g. Web3Forms)
+  });
+</script>
+
+  <footer>
+    © 2025 Hospital Booking System. All Rights Reserved.
+  </footer>
+
+</body>
+</html>

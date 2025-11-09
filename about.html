@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us | Hospital Booking</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background-color: #fff;
+      color: #333;
+    }
+
+    /* 🔹 Header */
+    header {
+      background: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 80px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #e74c3c;
+    }
+
+    .logo span {
+      color: #2c3e50;
+    }
+
+    nav {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    nav a {
+      padding: 0.8rem 1.5rem;
+      text-decoration: none;
+      color: white;
+      background: #e74c3c;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    nav a:hover {
+      background: #c0392b;
+      transform: translateY(-2px);
+    }
+
+    /* 🔹 About Section */
+    .about-section {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      padding: 80px 10%;
+      gap: 50px;
+      background-color: #f9f9f9;
+    }
+
+    .about-image {
+      flex: 1 1 400px;
+    }
+
+    .about-image img {
+      width: 100%;
+      border-radius: 20px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+
+    .about-content {
+      flex: 1 1 500px;
+    }
+
+    .about-content h2 {
+      font-size: 2rem;
+      color: #e74c3c;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .about-content h3 {
+      font-size: 1.5rem;
+      color: #2c3e50;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+
+    .about-content p {
+      font-size: 1rem;
+      color: #555;
+      line-height: 1.7;
+      margin-bottom: 15px;
+    }
+
+    .features {
+      margin-top: 25px;
+    }
+
+    .features span {
+      display: inline-block;
+      margin-right: 20px;
+      color: #333;
+      font-weight: 500;
+      background-color: #e0e0e0;
+      padding: 6px 12px;
+      border-radius: 20px;
+    }
+
+    /* 🔹 Footer */
+    footer {
+      text-align: center;
+      background: #f8f8f8;
+      padding: 20px;
+      font-size: 0.9rem;
+      color: #666;
+    }
+
+    @media (max-width: 768px) {
+      .about-section {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .about-content h2, .about-content h3 {
+        text-align: center;
+      }
+
+      .features {
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 🔹 Header -->
+  <header>
+    <div class="logo">Health<span>Care</span></div>
+    <nav>
+      <a href="home.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="services.html">Services</a>
+      <a href="doctor.html">Doctors</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <!-- 🔹 About Section -->
+  <section class="about-section">
+    <div class="about-image">
+      <img src="images/doctors.jpeg" alt="Hospital Team">
+    </div>
+
+    <div class="about-content">
+      <h2>Our Story of Care & Compassion</h2>
+      <h3>History of Our Hospital</h3>
+      <p>
+        Our hospital was founded with a vision to deliver compassionate, accessible, and innovative healthcare services to our community.
+        What began as a small medical center has grown into a multi-specialty hospital serving thousands of patients each year.
+      </p>
+      <p>
+        With a dedicated team of doctors, nurses, and support staff, we have built a legacy of excellence in patient care, medical education,
+        and community service. Every step we take is guided by our commitment to healing, hope, and humanity.
+      </p>
+
+      <div class="features">
+        <span>Expert Medical Staff</span>
+        <span>24/7 Emergency Services</span>
+        <span>Advanced Technology</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 🔹 Footer -->
+  <footer>
+    © 2025 Hospital Booking System. All Rights Reserved.
+  </footer>
+
+</body>
+</html>

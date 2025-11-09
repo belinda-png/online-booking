@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Appointment Confirmed</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f0f8ff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .confirmation-box {
+      background: white;
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(183, 28, 28, 0.603);
+      max-width: 500px;
+      width: 100%;
+      text-align: center;
+    }
+
+    h1 {
+      color: #a03616;
+      font-size: 1.8rem;
+      margin-bottom: 15px;
+    }
+
+    p {
+      font-size: 1rem;
+      color: #502c2c;
+      margin-bottom: 20px;
+    }
+
+    .details {
+      text-align: left;
+      margin-top: 25px;
+      margin-bottom: 30px;
+      border: 1px solid #e8e8e8;
+      border-radius: 10px;
+      padding: 20px;
+      background: #f9fdfb;
+    }
+
+    .details p {
+      margin: 10px 0;
+      font-size: 1rem;
+      color: #c11010;
+    }
+
+    .details strong {
+      color: #800000;
+    }
+
+    .btn-group {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+    }
+
+    .btn {
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-weight: 600;
+      text-decoration: none;
+      color: white;
+      background-color: #a64d4d;
+      transition: background-color 0.3s;
+      flex: 1;
+      text-align: center;
+    }
+
+    .btn:hover {
+      background-color: #a01616;
+    }
+
+    .highlight {
+      font-weight: 600;
+      color: #cf5656;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="confirmation-box">
+    <h1>Appointment Confirmed!</h1>
+    <p>Your appointment has been successfully booked.</p>
+
+    <div class="details" id="detailsBox">
+      <!-- Dynamic appointment info goes here -->
+    </div>
+
+    <p id="emailNote"></p>
+
+    <div class="btn-group">
+      <a href="home.html" class="btn">Back to Home</a>
+      <a href="view_appoinment.html" class="btn">View My Appointments</a>
+    </div>
+  </div>
+
+  <script>
+    // Get appointment + patient data from localStorage
+    const appointment = JSON.parse(localStorage.getItem("appointmentDetails"));
+    const patient = JSON.parse(localStorage.getItem("patientInfo"));
+
+    const detailsBox = document.getElementById("detailsBox");
+    const emailNote = document.getElementById("emailNote");
+
+    if (appointment && patient) {
+      // Example: service could be attached to doctor or chosen earlier
+      const service = appointment.doctor.specialty.includes("Cardio") ? "Cardiology Consultation" :
+                      appointment.doctor.specialty.includes("Dent") ? "Dental Checkup" :
+                      appointment.doctor.specialty.includes("Therap") ? "Physical Therapy" :
+                      "General Consultation";
+ 
+      const feeMap = {
+        "General Consultation": "$50",
+        "Dental Checkup": "$80",
+        "Physical Therapy": "$70",
+        "Cardiology Consultation": "$100"
+      };
+      const fee = feeMap[service] || "$50";
+
+      detailsBox.innerHTML = `
+        <p><strong>Service:</strong> <span class="highlight">${service}</span></p>
+        <p><strong>Doctor:</strong> <span class="highlight">${appointment.doctor.name}</span></p>
+        <p><strong>Date:</strong> ${appointment.date}</p>
+        <p><strong>Time:</strong> ${appointment.time}</p>
+        <p><strong>Patient:</strong> ${patient.fullname}</p>
+        <p><strong>Fee:</strong> ${fee}</p>
+      `;
+
+      emailNote.innerHTML = `A confirmation email has been sent to <strong>${patient.email}</strong>`;
+    } else {
+      detailsBox.innerHTML = `<p>Missing appointment or patient information. Please go back and book again.</p>`;
+    }
+  </script>
+</body>
+</html>

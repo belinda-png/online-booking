@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Select Date & Time - Book Appointment</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "Poppins", sans-serif;
+      background-color: #f0f8ff;
+      color: #333;
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 450px;
+      width: 100%;
+      background: white;
+      border-radius: 15px;
+      padding: 40px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: #9c6464;
+      margin-bottom: 30px;
+      text-align: left;
+    }
+
+    .form-group { margin-bottom: 25px; }
+
+    label {
+      display: block;
+      font-size: 1rem;
+      font-weight: 500;
+      color: #2c3e50;
+      margin-bottom: 10px;
+    }
+
+    input[type="date"] {
+      width: 100%;
+      padding: 12px 15px;
+      font-size: 1rem;
+      font-family: "Poppins", sans-serif;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      background-color: white;
+      color: #333;
+      transition: border-color 0.3s;
+    }
+
+    input[type="date"]:focus {
+      outline: none;
+      border-color: #8b5151;
+    }
+
+    .time-slots {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .time-slot {
+      padding: 12px;
+      text-align: center;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: #2c3e50;
+      cursor: pointer;
+      transition: all 0.3s;
+      background: white;
+    }
+
+    .time-slot:hover {
+      border-color: #813d3d;
+      background-color: #f0fffe;
+    }
+
+    .time-slot.selected {
+      background-color: #8a5e5a;
+      color: white;
+      border-color: #863a3a;
+    }
+
+    .button-group {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-top: 30px;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 15px;
+      font-size: 1rem;
+      font-weight: 600;
+      font-family: "Poppins", sans-serif;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-align: center;
+      text-decoration: none;
+      display: block;
+    }
+
+    .btn-back {
+      background-color: white;
+      color: #a46161;
+      border: 2px solid #8e2a2a;
+    }
+
+    .btn-back:hover {
+      background-color: #f0fffe;
+    }
+
+    .btn-continue {
+      background-color: #854c4c;
+      color: white;
+    }
+
+    .btn-continue:hover {
+      background-color: #f05353;
+    }
+
+    .doctor-info {
+      background-color: #f8f9fa;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 25px;
+      text-align: center;
+    }
+
+    .doctor-info .name {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #2c3e50;
+      margin-bottom: 5px;
+    }
+
+    .doctor-info .specialty {
+      font-size: 0.9rem;
+      color: #754747;
+    }
+
+    @media (max-width: 480px) {
+      .container { padding: 30px 20px; }
+      .time-slots { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+ 
+</head>
+<body>
+  <div class="container">
+    <h1>Select Date & Time</h1>
+
+    <div class="doctor-info">
+      <div class="name" id="doctorName">Loading...</div>
+      <div class="specialty" id="doctorSpecialty"></div>
+    </div>
+
+    <div class="form-group">
+      <label for="appointment-date">Date</label>
+      <input type="date" id="appointment-date">
+    </div>
+
+    <div class="form-group">
+      <label>Time</label>
+      <div class="time-slots">
+        <div class="time-slot">09:00 AM</div>
+        <div class="time-slot">10:00 AM</div>
+        <div class="time-slot">11:00 AM</div>
+        <div class="time-slot">01:00 PM</div>
+        <div class="time-slot">02:00 PM</div>
+        <div class="time-slot">03:00 PM</div>
+        <div class="time-slot">04:00 PM</div>
+        <div class="time-slot">05:00 PM</div>
+        <div class="time-slot">06:00 PM</div>
+      </div>
+    </div>
+
+    <div class="button-group">
+      <a href="doctors.html" class="btn btn-back">Back</a>
+      <button class="btn btn-continue" id="continueBtn">Continue</button>
+    </div>
+  </div>
+
+  <script>
+    // --- Load selected doctor from localStorage ---
+    const doctorData = JSON.parse(localStorage.getItem("selectedDoctor"));
+
+    if (doctorData) {
+      document.getElementById("doctorName").textContent = doctorData.name;
+      document.getElementById("doctorSpecialty").textContent = doctorData.specialty;
+    } else {
+      alert("No doctor selected. Redirecting...");
+      window.location.href = "doctors.html";
+    }
+
+    // --- Time slot selection ---
+    const timeSlots = document.querySelectorAll(".time-slot");
+    let selectedTime = null;
+
+    timeSlots.forEach(slot => {
+      slot.addEventListener("click", () => {
+        timeSlots.forEach(s => s.classList.remove("selected"));
+        slot.classList.add("selected");
+        selectedTime = slot.textContent;
+      });
+    });
+
+    // --- Continue button ---
+    document.getElementById("continueBtn").addEventListener("click", () => {
+      const date = document.getElementById("appointment-date").value;
+      if (!date || !selectedTime) {
+        alert("Please select both date and time before continuing.");
+        return;
+      }
+
+      const appointment = {
+        doctor: doctorData,
+        date: date,
+        time: selectedTime
+      };
+
+      localStorage.setItem("Details", JSON.stringify(appointment));
+      window.location.href = "details.html";
+    });
+
+    // --- Set today's date as min date ---
+    const today = new Date().toISOString().split("T")[0];
+    document.getElementById("appointment-date").setAttribute("min", today);
+  </script>
+</body>
+</html>
