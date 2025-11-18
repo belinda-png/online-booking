@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Appointments</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: white;
+      padding: 40px;
+      color: #ab3232;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      color: #a01616;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    input[type="email"] {
+      width: 100%;
+      padding: 12px;
+      font-size: 1rem;
+      border: 2px solid #ccc;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      font-size: 1rem;
+      background-color: #8c584e;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .appointment-card {
+      margin-top: 30px;
+      background-color: #f8f9fa;
+      padding: 20px;
+      border-radius: 10px;
+    }
+
+    .row {
+      margin-bottom: 10px;
+    }
+
+    .label {
+      font-weight: 600;
+      color: #c62424;
+    }
+
+    .value {
+      margin-left: 10px;
+      color: #ba3a1a;
+    }
+
+    .status-pill {
+      display: inline-block;
+      padding: 5px 12px;
+      background-color: #c7c4c2;
+      color: white;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>My Appointments</h1>
+    <input type="email" id="emailInput" placeholder="Enter your email" />
+    <button onclick="showAppointments()">View Appointments</button>
+
+    <div id="appointmentDisplay"></div>
+  </div>
+<script>
+  function showAppointments() {
+    const email = document.getElementById("emailInput").value.trim();
+
+    const patient = JSON.parse(localStorage.getItem("patientInfo"));
+    const appointment = JSON.parse(localStorage.getItem("Details"));
+
+    if (
+      patient &&
+      appointment &&
+      appointment.doctor &&
+      appointment.date &&
+      appointment.time &&
+      patient.email === email
+    ) {
+      document.getElementById("appointmentDisplay").innerHTML = `
+        <div class="appointment-card">
+          <div class="row"><span class="label">Patient:</span><span class="value">${patient.fullname}</span></div>
+          <div class="row"><span class="label">Email:</span><span class="value">${patient.email}</span></div>
+          <div class="row"><span class="label">Type:</span><span class="value">General Consultation</span></div>
+          <div class="row"><span class="label">Status:</span><span class="status-pill">pending</span></div>
+          <div class="row"><span class="label">Doctor:</span><span class="value">${appointment.doctor.name}</span></div>
+          <div class="row"><span class="label">Specialty:</span><span class="value">${appointment.doctor.specialty}</span></div>
+          <div class="row"><span class="label">Date:</span><span class="value">${appointment.date}</span></div>
+          <div class="row"><span class="label">Time:</span><span class="value">${appointment.time}</span></div>
+          <div class="row"><span class="label">Cost:</span><span class="value">$50</span></div>
+        </div>
+      `;
+    } else {
+      document.getElementById("appointmentDisplay").innerHTML = `<p>No appointments found for this email.</p>`;
+    }
+  }
+</script>
+
+</body>
+</html>

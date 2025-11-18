@@ -5,13 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Appointment Confirmed</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
 
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: 'Poppins', sans-serif;
       background-color: #f0f8ff;
@@ -32,17 +28,8 @@
       text-align: center;
     }
 
-    h1 {
-      color: #a03616;
-      font-size: 1.8rem;
-      margin-bottom: 15px;
-    }
-
-    p {
-      font-size: 1rem;
-      color: #502c2c;
-      margin-bottom: 20px;
-    }
+    h1 { color: #a03616; font-size: 1.8rem; margin-bottom: 15px; }
+    p { font-size: 1rem; color: #502c2c; margin-bottom: 20px; }
 
     .details {
       text-align: left;
@@ -60,9 +47,7 @@
       color: #c11010;
     }
 
-    .details strong {
-      color: #800000;
-    }
+    .details strong { color: #800000; }
 
     .btn-group {
       display: flex;
@@ -82,70 +67,98 @@
       text-align: center;
     }
 
-    .btn:hover {
-      background-color: #a01616;
-    }
+    .btn:hover { background-color: #a01616; }
 
-    .highlight {
-      font-weight: 600;
-      color: #cf5656;
-    }
-
+    .highlight { font-weight: 600; color: #cf5656; }
   </style>
 </head>
+
 <body>
   <div class="confirmation-box">
     <h1>Appointment Confirmed!</h1>
     <p>Your appointment has been successfully booked.</p>
 
-    <div class="details" id="detailsBox">
-      <!-- Dynamic appointment info goes here -->
-    </div>
-
+    <div class="details" id="detailsBox"></div>
     <p id="emailNote"></p>
 
-    <div class="btn-group">
+    <div class="btn-group"> 
       <a href="home.html" class="btn">Back to Home</a>
-      <a href="view_appoinment.html" class="btn">View My Appointments</a>
+       <a href="appointment.html" class="btn">View My Appointments</a> 
     </div>
-  </div>
-
   <script>
-    // Get appointment + patient data from localStorage
-    const appointment = JSON.parse(localStorage.getItem("appointmentDetails"));
-    const patient = JSON.parse(localStorage.getItem("patientInfo"));
+    // Debug: Show what is stored
+    console.log("Raw appointmentDetails:", localStorage.getItem("appointmentDetails"));
+    console.log("Raw patientInfo:", localStorage.getItem("patientInfo"));
+
+    let appointment, patient;
+
+    try {
+      appointment = JSON.parse(localStorage.getItem("appointmentDetails"));
+      patient = JSON.parse(localStorage.getItem("patientInfo"));
+    } catch (e) {
+      console.error("JSON parse error:", e);
+    }
 
     const detailsBox = document.getElementById("detailsBox");
     const emailNote = document.getElementById("emailNote");
 
-    if (appointment && patient) {
-      // Example: service could be attached to doctor or chosen earlier
-      const service = appointment.doctor.specialty.includes("Cardio") ? "Cardiology Consultation" :
-                      appointment.doctor.specialty.includes("Dent") ? "Dental Checkup" :
-                      appointment.doctor.specialty.includes("Therap") ? "Physical Therapy" :
-                      "General Consultation";
- 
-      const feeMap = {
-        "General Consultation": "$50",
-        "Dental Checkup": "$80",
-        "Physical Therapy": "$70",
-        "Cardiology Consultation": "$100"
-      };
-      const fee = feeMap[service] || "$50";
-
+    // If missing data → show error message
+    if (!appointment || !patient) {
       detailsBox.innerHTML = `
-        <p><strong>Service:</strong> <span class="highlight">${service}</span></p>
-        <p><strong>Doctor:</strong> <span class="highlight">${appointment.doctor.name}</span></p>
-        <p><strong>Date:</strong> ${appointment.date}</p>
-        <p><strong>Time:</strong> ${appointment.time}</p>
-        <p><strong>Patient:</strong> ${patient.fullname}</p>
-        <p><strong>Fee:</strong> ${fee}</p>
+        <p><strong style="color:red">Error:</strong> Missing appointment or patient information.<br>
+        Please go back and book again.</p>
       `;
-
-      emailNote.innerHTML = `A confirmation email has been sent to <strong>${patient.email}</strong>`;
-    } else {
-      detailsBox.innerHTML = `<p>Missing appointment or patient information. Please go back and book again.</p>`;
+      console.error("Missing appointmentDetails or patientInfo!");
+      return;
     }
+
+    // Validate structure safely
+    const doctorName = appointment?.doctor?.name || "Unknown Doctor";
+    const doctorSpecialty = appointment?.doctor?.specialty || "General";
+    const date = appointment?.date || "Not Provided";
+    const time = appointment?.time || "Not Provided";
+
+    const patientName = patient?.fullname || "Unknown Patient";
+    const patientEmail = patient?.email || "No Email Provided";
+
+    // Determine service based on specialty
+    let service = "General Consultation";
+    if (doctorSpecialty.toLowerCase().includes("dent")) service = "Dental Checkup";
+    if (doctorSpecialty.toLowerCase().includes("cardio")) service = "Cardiology Consultation";
+    if (doctorSpecialty.toLowerCase().includes("therap")) service = "Physical Therapy";
+
+    // Fee list
+    const feeMap = {
+      "General Consultation": "$50",
+      "Dental Checkup": "$80",
+      "Physical Therapy": "$70",
+      "Cardiology Consultation": "$100"
+    };
+
+    const fee = feeMap[service] || "$50";
+
+    // Fill appointment details
+    detailsBox.innerHTML = `
+      <p><strong>Service:</strong> <span class="highlight">${service}</span></p>
+      <p><strong>Doctor:</strong> <span class="highlight">${doctorName}</span></p>
+      <p><strong>Date:</strong> ${date}</p>
+      <p><strong>Time:</strong> ${time}</p>
+      <p><strong>Patient:</strong> ${patientName}</p>
+      <p><strong>Fee:</strong> ${fee}</p>
+    `;
+
+    emailNote.innerHTML = `A confirmation email has been sent to <strong>${patientEmail}</strong>`;
+    localStorage.setItem("appointmentDetails", JSON.stringify({
+  doctor: { name: doctorName, specialty: doctorSpecialty },
+  date: selectedDate,
+  time: selectedTime
+}));
+
+localStorage.setItem("patientInfo", JSON.stringify({
+  fullname: fullNameInput.value,
+  email: emailInput.value
+}));
+
   </script>
 </body>
 </html>
